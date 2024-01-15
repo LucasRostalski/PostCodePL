@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Polish Zip Codes</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+  body {
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin: 20px auto;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+select option:first-child {
+  color: #888;
+}
+
+select:disabled {
+  background-color: #eee;
+  cursor: default;
+}
+
+#results {
+  margin: 20px auto;
+  width: 60%;
+}
+</style>
+</head>
+
+<body>
+  <form>
+    <label for="postal-code">Kod pocztowy:</label>
+    <input type="text" id="postal-code" name="postal-code" maxlength="6">
+    <div id="city"></div>
+  </form>
+
+  <script>
+    $(document).ready(function() {
+      $("#postal-code").on("keyup", function() {
+        var postal_code = $(this).val();
+
+        $.ajax({
+          type: "GET",
+          url: "postcode.php",
+          data: { postal_code: postal_code },
+          success: function(result) {
+            $("#city").html(result);
+          },
+          error: function() {
+            $("#city").html("Błąd pobierania danych.");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+        
+        
